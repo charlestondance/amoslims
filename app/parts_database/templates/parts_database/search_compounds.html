@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Amos{% endblock %}
+{% block page_content %}
+{% from "parts_database/_formhelpers.html" import render_field %}
+<form method=post>
+  <dl>
+    {{ render_field(form.select) }}
+    <p>
+  </dl>
+  <p><input type=submit value=Search>
+</form>
+
+{% endblock %}

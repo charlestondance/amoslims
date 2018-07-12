@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+
+    <h1>Choose What to Do</h1>
+</div>
+<div class="col-md-4">
+    <h2>YTK Design</h2>
+    <li><a href="{{ url_for('YTK.makeytkdesign') }}">YTK design V1.0 (4 coding sequences)</a></li>
+    <h2>Download Designs</h2>
+    <li><a href="{{ url_for('main.downloaddesignlaunchpad') }}">Download Pending Designs</a></li>
+</div>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+
+    <h1>{{part_info.part_id}}, {{part_info.part_name}}</h1>
+</div>
+<div>
+<div class="col-md-4">
+    <table class="table table-striped">
+    <tr>
+    <th>Part ID</th>
+        <th>Type</th>
+    <th>Size</th>
+        <th>Cargo</th>
+  </tr>
+{% for size in part_sizes %}
+<tr>
+    <td>{{size.part_id}}</td><td>{{size.enzyme}}</td><td>{{size.size}}</td><td>{{size.cargo_number}}</td>
+</tr>
+        {% endfor %}
+
+</div>
+    {% if part_info.sequence %}
+<a class="btn btn-danger"
+            href="https://ice.bg.ic.ac.uk:8443/entry/{{ part_info.sequence }}">
+            Seq
+               </a>
+<p>
+
+<a class="btn btn-danger"
+            href="{{ url_for('parts_database.get_part_size', partid =  part_info.part_id) }}">
+            Get Size
+               </a>
+
+    {% else %}
+    <p>Please Connect Part To Ice</p>
+    {% endif %}
+
+</div>
+
+
+<div>
+
+
+    <h2>Info</h2>
+</div>
+<div class="col-md-4">
+    <table class="table table-striped">
+    <tr>
+    <th>Part ID</th>
+        <th>Batch Number</th>
+    <th>Barcode</th>
+        <th>Well</th>
+  </tr>
+{% for batch in batches %}
+<tr>
+    <td>{{batch.part_id}}</td><td>{{batch.batch_number}}</td><td>{{batch.storage_plate_barcode}}</td><td>{{batch.storage_location_id}}</td>
+</tr>
+        {% endfor %}
+
+</div>
+</table>
+    {% for id in ids %}
+        <h3>{{id}}</h3>
+        <div id="{{id}}"></div>
+    {% endfor %}
+<!---
+<div>
+<iframe src="https://public-registry.jbei.org/entry/9357"; height="400"; width="500"; style="border:none;></iframe>
+</div>
+<script>
+    $('#ng-scope').load('https://public-registry.jbei.org/entry/9357 #ng-scope');
+    </script>
+
+<script>
+$('contentDiv').load('https://public-registry.jbei.org/entry/9357 #ng-scope')
+
+});
+</script>
+<iframe width="1000" height="500" src="https://public-registry.jbei.org/static/swf/ve/VectorEditor?entryId=bd34b76f-9f48-44de-8a9c-163f9d0126dd&sessionId=3d007cda-f21a-4c77-bcd3-f1118ef61fde"></iframe>
+
+-->
+
+
+
+<div id='iframediv'>
+</div>
+
+<script>
+    $('#iframediv').load('https://public-registry.jbei.org/entry/9357');
+</script>
+
+<script type="text/javascript">
+        var graphs = {{graphJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in graphs) {
+            Plotly.plot(ids[i], // the ID of the div, created above
+                        graphs[i].data,
+                        graphs[i].layout || {});
+        }
+    </script>
+{% endblock %}

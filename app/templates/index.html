@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <table>
+    <tr>
+    <td style="white-space:nowrap;"><h1>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1></td><td></td>
+    <td><img src={{ url_for('static', filename='amoslogo.jpg') }} alt="logo" align="right" style="width: 20%; height: 20%"></td>
+    </tr>
+    </table>
+</div>
+<div style="width: 50%;overflow:auto;">
+    <div style="float:left; width: 50%">
+
+<P>
+                {% if current_user.is_authenticated %}
+                <h2>Design Tools</h2>
+                <li><a href="{{ url_for('main.makejmpdesignlaunchpad') }}">jmp design</a></li>
+                <li><a href="{{ url_for('main.raise_job') }}">Raise Job</a></li>
+                <li><a href="{{ url_for('main.about_amos') }}">About amos</a></li>
+                {% endif %}
+</P>
+<P>
+                {% if current_user.is_authenticated %}
+                <h2>Build Projects</h2>
+                {% for project in projects_list %}
+                <li><a href="{{ url_for('main.project_launchpad', projectnumber = project) }}">Project {{ project }}</a></li>
+                {% endfor %}
+
+                {% endif %}
+</P>
+
+            </div>
+
+
+    <div style="float:right;">
+
+<P>
+
+
+                {% if current_user.is_authenticated %}
+                <h2>Registry</h2>
+                <li><a href="{{ url_for('parts_database.compounds_search') }}">View Parts Database</a></li>
+                <li><a href="{{ url_for('parts_database.register_part') }}">Register Part</a></li>
+                <li><a href="{{ url_for('main.register_project') }}">Register Project</a></li>
+
+
+
+                <li><a href="{{ url_for('parts_database.uploadpartscsv') }}">Upload Parts CSV</a></li>
+                <li><a href="{{ url_for('parts_database.uploadsizesscsv') }}">Upload Sizes CSV</a></li>
+                <li><a href="{{ url_for('parts_database.uploadicelink') }}">Upload ICE Link</a></li>
+                <li><a href="{{ url_for('parts_database.showpartplates') }}">Show Storage Plates</a></li>
+                {% endif %}
+
+    </p>
+
+
+
+<p>
+                {% if current_user.can(Permission.EDIT_DB) %}
+                <h2>Tube Storage</h2>
+                <li><a href="{{ url_for('main.registertubeitem') }}">Register Tube</a></li>
+                <li><a href="{{ url_for('main.show_tubes') }}">View Tube Database</a></li>
+                {% endif %}
+</P>
+
+              <p>
+                {% if current_user.can(Permission.EDIT_DB) %}
+                <h2>Admin Tasks</h2>
+                <li><a href="{{ url_for('auth.delete_user') }}">Delete User</a></li>
+                <li><a href="{{ url_for('auth.user_management') }}">List Users</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register New User</a></li>
+                <li><a href="{{ url_for('auth.add_wells_lookup_to_database') }}">Add Wells</a></li>
+                <li><a href="{{ url_for('main.register_job_type') }}">Add Job Type</a></li>
+                {% endif %}
+</P>
+    </div>
+</div>
+{% endblock %}

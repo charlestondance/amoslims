@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+
+<div class="col-md-4">
+    <h1> Clips Assembly Report </h1>
+
+    <table style="white-space: nowrap; text-align: center;" class="table table-bordered" width="300%" align="center">
+        <tr><td> <b>Clip ID</b> </td><td>Genbank File</td><td>Assembly</td></tr>
+        {% for clip in clip_list %}
+        <tr>
+            <td> {{ clip }}</td><td> <a href={{ url_for('YTK.static', filename='YTK/' + jobnumber + '/sequences/' + clip + '.gb') }} >Genbank</a> </td><td>  <img src={{ url_for('YTK.static', filename='YTK/' + jobnumber + '/sequences/' + clip + '.png') }} /></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

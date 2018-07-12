@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <a><h1>Tubes</h1></a>
+
+{% include '_showtubestable.html' %}
+    {% if pagination %}
+    <div class="pagination">
+    {{ macros.pagination_widget(page_decrement, pageincrement, pagination, '.show_tubes' ) }}
+</div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

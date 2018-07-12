@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+
+    <h1>Amos Info</h1>
+</div>
+<div class="col-md-4">
+
+    <P>
+
+
+        <div class="col-sm-8">
+    <table class="table table-striped">
+    <tr>
+    <th>Item</th>
+    <th>Count</th>
+    </tr>
+    <tr>
+        <td> The count of job id is </td> <td> {{ unique_job_count }} </td> </tr>
+        <td> The count of stitch ids is </td> <td> {{ unique_stitch_count }} </td> </tr>
+
+{% endblock %}

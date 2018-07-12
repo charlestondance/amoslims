@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+
+<div class="col-md-4">
+    <h1> Stitches Assembly Report </h1>
+
+    <table style="white-space: nowrap; text-align: center;" class="table table-bordered" width="300%" align="center">
+        <tr><td> <b>Stitch ID</b> </td><td>Genbank File</td><td>Assembly</td></tr>
+        {% for stitch in stitch_list %}
+        <tr>
+            <td> {{ stitch }}</td><td> <a href={{ url_for('YTK.static', filename='YTK/' + jobnumber + '/stitches/' + stitch + '.gb') }} >Genbank</a> </td><td>  <img src={{ url_for('YTK.static', filename='YTK/' + jobnumber + '/stitches/' + stitch + '.png') }} /></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+
+

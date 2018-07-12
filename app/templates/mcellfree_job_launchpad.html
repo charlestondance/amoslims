@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Project <i> {{project_number}} </i> Job <i> {{ jobnumber }} </i>: MCELLFREE </h1>
+</div>
+<div class="col-sm-8">
+    <table class="table table-striped">
+    <tr>
+    <th>Tasks</th>
+    <th>Status</th>
+    <th align>Delete</th>
+        <th>Lock</th>
+    </tr>
+    <tr>
+
+    <td>Design</td><td> pendin </td><td>-</td><td>-</td>
+
+    </tr>
+    <tr>
+    <td>Job Master Processed</td><td> pending </td><td>-</td><td>-</td>
+    </tr>
+        <tr>
+        <td>Miniprep QC</td><td> pending </td><td>-</td><td>-</td>
+        </tr>
+
+        <td>Mini Prep QC Echo</td><td> pending </td><td>-</td><td>-</td>
+
+        </tr>
+
+        <td>Stitch QC</td><td> pending </td><td>-</td><td>-</td>
+
+        <tr>
+
+        <td>Stitch QC Echo</td><td> pending </td><td>-</td><td>-</td>
+
+            <tr>
+
+    <td>JMP File</td><td> pending </td><td>-</td><td>-</td>
+
+        </tr>
+    </table>
+    <h4>Picklists</h4>
+
+    <table class="table table-striped">
+    <tr>
+    <th>Master</th>
+    <th>Teir 1</th>
+    <th>Stitch</th>
+    </tr>
+    <tr>
+
+    <td>Job Master</td><td>Tier 1 Picklist</td><td>Stitch Picklist</td></tr>
+    <tr>
+    <td>-</td><td>Teir 1 Enzyme Picklist</td><td>Stitch Buffer Picklist</td></tr>
+
+    </table>
+</div>
+
+<div class="col-sm-8">
+
+</div>
+{% endblock %}

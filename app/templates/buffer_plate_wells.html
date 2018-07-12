@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+
+    <h1>Buffer Plate Wells</h1>
+</div>
+
+
+    <div class="col-sm-8">
+    <table class="table table-striped">
+    {% for buffer_well in buffer_wells_query %}
+        <tr><td>{{ buffer_well.buffer_name}}</td><td>{{ buffer_well.buffer_plate_barcode}}</td><td>{{ buffer_well.buffer_plate_well_id}}</td><td>{{ buffer_well.loading_volume}}<td>
+
+
+
+    </tr>
+    {% endfor %}
+
+
+{% endblock %}

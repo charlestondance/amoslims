@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Project <i> {{project_number}} </i> Job <i> {{ jobnumber }} </i>: YTK </h1>
+</div>
+<div class="col-sm-8">
+    <table class="table table-striped">
+    <tr>
+    <th>Tasks</th>
+    <th>Status</th>
+    <th align>Delete</th>
+        <th>Lock</th>
+    </tr>
+    <tr>
+
+    {% if qc_tasks['uploaddesign'].status == 'pending' %}
+    <td>Design</td><td>{{ design_uploaded_filename }} </td><td>-</td><td>-</td>
+        {% elif qc_tasks['uploaddesign'].status == 'complete' and qc_tasks['uploadjobmaster'].status == 'complete'%}
+        <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_ydesign') }}">Design</a></li></td><td>{{ design_uploaded_filename }} </td><td>-</td><td>-</td>
+    {% else %}
+    <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_design') }}">Design</a></li></td><td>{{ design_uploaded_filename }} </td><td><a class="btn btn-danger" href="{{ url_for('YTK.delete_ytk_design', jobnumber = jobnumber) }}">Delete</a></td><td><a class="btn btn-danger" href="www.google.com">Lock</a></td>
+    {% endif %}
+    </tr>
+
+    </tr>
+    <tr>
+    {% if qc_tasks['uploadjobmaster'].status == 'pending' %}
+    <td>Level 1 Job Master Processed</td><td>{{ qc_tasks['uploadjobmaster'].status }} </td><td>-</td><td>-</td>
+    {% elif qc_tasks['uploadjobmaster'].status == 'complete' and qc_tasks['uploadjobmaster_level_2'].status == 'pending' %}
+    <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YMP') }}">Level 1 Job Master Processed</a></li></td><td>{{ job_master_uploaded_filename }}</td><td><a class="btn btn-danger" href="{{ url_for('YTK.delete_ytk_jobmaster1', jobnumber = jobnumber) }}">Delete</a></td><td><a class="btn btn-danger" href="www.google.com">Lock</a></td>
+    {% endif %}
+        </tr>
+    </tr>
+        <tr>
+        {% if qc_tasks['uploadjobmaster_level_2'].status == 'pending' %}
+    <td>Level 2 Job Master Processed</td><td>{{ qc_tasks['uploadjobmaster_level_2'].status }} </td><td>-</td><td>-</td>
+    {% else %}
+            <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YMP') }}">Level 1 Job Master Processed</a></li></td><td>{{ job_master_uploaded_filename }}</td><td>-</td><td>-</td></tr>
+    <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YMP2') }}">Level 2 Job Master Processed</a></li></td><td>{{ job_master_uploaded2_filename }}</td><td><a class="btn btn-danger" href="{{ url_for('YTK.delete_ytk_jobmaster2', jobnumber = jobnumber) }}">Delete</a></td><td><a class="btn btn-danger" href="www.google.com">Lock</a></td>
+    {% endif %}
+        </tr>
+        </tr>
+
+
+    <td>JMP File</td><td> pending </td><td>-</td><td>-</td>
+
+        </tr>
+    </table>
+    <h4>Picklists</h4>
+
+    <table class="table table-striped">
+    <tr>
+    <th>Level 1 Master</th>
+    <th>Level 1 Clip</th>
+        <th>Level 2 Master</th>
+    <th>Level 2 Stitch</th>
+    </tr>
+    <tr>
+    {%if qc_tasks['uploaddesign'].status == 'pending'%}
+        <td>Job Master</td><td>Level 1 Clip Picklist</td><td>Job Master</td><td>Stitch Picklist</td></tr>
+        {% endif %}
+        {%if qc_tasks['uploaddesign'].status == 'complete' and qc_tasks['uploadjobmaster'].status == 'pending' %}
+        <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YM') }}">Job Master</a></td><td>Level 1 Clip Picklist</td><td>Job Master</td><td>Stitch Picklist</td></tr>
+        <td>-</td><td>Level 1 Enzyme Picklist</td><td>Miniprep Positions</td><td>Level 2 Enzyme Picklist</td></tr>
+        <td>-</td><td>Level 1 Clone</td><td>-</td><td>Level 2 Clone</td></tr>
+        {% endif %}
+        <tr>
+            {% if qc_tasks['uploaddesign'].status == 'complete' and qc_tasks['uploadjobmaster'].status == 'complete' and qc_tasks['uploadjobmaster_level_2'].status == 'pending' %}
+            <td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YM') }}">Job Master</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCL') }}">Level 1 Clip Picklist</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YM2') }}">Job Master 2</a></td><td>Stitch Picklist</td></tr>
+        <td>-</td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCLE') }}">Level 1 Enzyme Picklist</a></td><td><li><a href="{{ url_for('YTK.ytk_show_miniprep_positions', jobnumber=jobnumber)}}">Miniprep Positions</a></td><td>Level 2 Enzyme Picklist</td></tr>
+        <td>-</td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCLC') }}">Level 1 Clone</a></td><td>-</td><td>Level 2 Clone</td></tr>
+        {% endif %}
+
+        {% if qc_tasks['uploaddesign'].status == 'complete' and qc_tasks['uploadjobmaster'].status == 'complete' and qc_tasks['uploadjobmaster_level_2'].status == 'complete' %}
+<tr>
+<td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YM') }}">Job Master</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCL') }}">Level 1 Clip Picklist</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YM2') }}">Job Master 2</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YS') }}">Stitch Picklist</a></td></tr>
+        <td>-</td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCLE') }}">Level 1 Enzyme Picklist</a></td><td><li><a href="{{ url_for('YTK.ytk_show_miniprep_positions', jobnumber=jobnumber)}}">Miniprep Positions</a></td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YSE') }}">Level 2 Enzyme Picklist</a></td></tr>
+        <td>-</td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YCLC') }}">Level 1 Clone</a></td><td>-</td><td><li><a href="{{ url_for('main.render_csv', jobname_filename =  jobnumber + '_YSC') }}">Level 2 Clone</a></td></tr>
+        {% endif %}
+
+
+    </table>
+
+    <h4>Assemblies</h4>
+
+    <table class="table table-striped">
+    <tr>
+    <th>Clip Assemblies</th>
+    <th>Stitch Assemblies</th>
+    </tr>
+    <tr>
+     {%if qc_tasks['in_silico_assembly'].status == 'pending'%}
+
+        <td>Clip Assemblies</td><td>Stitch Assemblies</td></tr>
+        {% endif %}
+        {%if qc_tasks['in_silico_assembly'].status == 'complete'%}
+        <td><li><a href="{{ url_for('YTK.ytk_clip_report', jobnumber = jobnumber) }}">Clip Assemblies</a></td><td><li><a href="{{ url_for('YTK.ytk_stitch_report', jobnumber = jobnumber) }}">Stitch Assemblies</a></td>
+     </tr>
+        {% endif %}
+        </table>
+</div>
+
+<div class="col-sm-8">
+{{ wtf.quick_form(form) }}
+</div>
+
+
+{% endblock %}

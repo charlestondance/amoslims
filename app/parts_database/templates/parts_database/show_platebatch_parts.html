@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+
+    <h1>{{ barcode }}</h1>
+</div>
+
+<div class="col-md-4">
+    <table class="table table-striped">
+    <tr>
+    <th>Part ID</th><th>Well Location</th>
+  </tr>
+{% for part_id in storage_plate_barcode  %}
+<tr>
+    <td>{{ part_id.part_id }}</td> <td>{{ part_id.storage_location_id }}</td>
+</tr>{% endfor %}
+
+    </table>
+</div>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <a href="{{ url_for('main.render_csv', jobname_filename = 'Parts_PDB') }}"><h1>Parts</h1></a>
+
+{% include 'parts_database/_showpartstable.html' %}
+    {% if pagination %}
+    <div class="pagination">
+    {{ macros.pagination_widget(page_decrement, pageincrement, pagination, '.show_compound', search_string=search_string) }}
+</div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

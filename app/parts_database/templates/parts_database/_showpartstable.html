@@ -1,0 +1,42 @@
+<p>
+    <table class="table table-striped">
+    <tr>
+    <th>Part ID</th>
+    <th>Part Name</th>
+        <th>Class</th>
+        <th>Type</th>
+        <th>Rel_Pos</th>
+        <th>Level</th>
+        <th>Offset</th>
+        <th>ICE id</th>
+        <th>Seq</th>
+        <th>Edit</th>
+  </tr>
+    {% for compounds in compound %}
+
+        <td><a href="{{ url_for('parts_database.show_part_batch', part_number = compounds.part_number) }}">{{ compounds.part_id }}</a></li></td> <td>{{ compounds.part_name }}</td> <td>{{ compounds.part_class }}</td> <td>{{ compounds.part_type }}</td> <td>{{ compounds.relative_position }}</td><td>{{ compounds.level }}</td><td>{{ compounds.offset }}</td><td>{{ compounds.sequence  }}</td>
+           <td>
+               <a class="btn btn-danger"
+            href="https://ice.bg.ic.ac.uk:8443/entry/{{ compounds.sequence }}">
+            Seq
+               </a>
+
+           </td>
+    <td>
+               <a class="btn btn-danger"
+            href="{{ url_for('.edit_part', id = compounds.id ) }}">
+            Edit
+               </a>
+
+           </td>
+
+    </tr>
+
+
+
+</a>
+        {% endfor %}
+        </tr>
+    </table>
+</p>
+</div>

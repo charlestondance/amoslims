@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Amos{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Barcodes in Use</h1>
+</div>
+<div class="col-sm-8">
+<table class="table table-striped">
+    <tr>
+        <td>Barcode</td></tr>
+{% for barcode in find_barcodes %}
+
+    <tr>
+
+     <td><a href="{{ url_for('parts_database.show_plate_parts', barcode = barcode.storage_plate_barcode) }}">{{ barcode.storage_plate_barcode }}</a></td>
+
+    </tr>
+{% endfor %}
+</table>
+
+</div>
+
+{% endblock %}
