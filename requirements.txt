@@ -50,7 +50,7 @@ fastcache==1.0.2
 filelock==3.0.4
 Flask==1.0.2
 Flask-Bootstrap==3.3.5.7
-Flask-Cors==3.0.4
+Flask-Cors==3.0.9
 Flask-Login==0.4.1
 Flask-Mail==0.9.1
 Flask-Migrate==2.2.1
